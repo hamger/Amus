@@ -17,7 +17,7 @@ var pages = Object.keys(utils.getEntry('src/**/index.js'));
 pages.forEach(item => {
   baseWebpackConfig.plugins.push(new HtmlWebpackPlugin({
     filename: `${item}.html`,
-    template: `${item}.html`,
+    template: `page/${item}.html`,
     inject: 'head',
     chunks: [item],
   }));
