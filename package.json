@@ -1,0 +1,42 @@
+{
+  "name": "amus",
+  "description": "a framwork with mvvm",
+  "version": "1.0.0",
+  "author": "hamger <2313303800@qq.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
+    "start": "npm run dev",
+    "build": "node build/build.js"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "chalk": "^2.0.1",
+    "copy-webpack-plugin": "^4.0.1",
+    "eslint": "^4.15.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-friendly-formatter": "^3.0.0",
+    "eslint-loader": "^1.7.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^5.2.0",
+    "eslint-plugin-promise": "^3.4.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "extract-text-webpack-plugin": "^3.0.0",
+    "friendly-errors-webpack-plugin": "^1.6.1",
+    "glob": "^7.1.2",
+    "html-webpack-plugin": "^2.30.1",
+    "node-notifier": "^5.1.2",
+    "optimize-css-assets-webpack-plugin": "^3.2.0",
+    "ora": "^1.2.0",
+    "portfinder": "^1.0.13",
+    "rimraf": "^2.6.0",
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.11.1",
+    "webpack-merge": "^4.1.0"
+  }
+}
