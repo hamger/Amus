@@ -1,21 +1,22 @@
+// 创建一个管理依赖的类
 export default class Dep {
-    // 静态属性，用来存放订阅者（见 ./watcher.js 文件）
+    // 静态属性，用来存放依赖（见 ./watcher.js）
 	static target 
 
-    constructor (){
-        // 订阅者集合，订阅者是 Watcher 的实例
+    constructor () {
+        // 依赖的集合，依赖是 Watcher 的实例
         this.subs = [] 
     }
 
-    // 添加订阅者，使用在属性的 getter 中（见 ./observer.js 文件）
-    addSub(sub) { 
+    // 添加依赖，使用在属性的 getter 中（见 ./observer.js）
+    addSub(sub) {
         this.subs.push(sub)
     }
 
-    // 发布公告，使用在属性的 setter 中（见 ./observer.js 文件）
+    // 发布公告，使用在属性的 setter 中（见 ./observer.js）
     notify() {
         this.subs.forEach(sub => {
-            // 订阅者自我更新（见 ./watcher.js 文件）
+            // 依赖自我更新（见 ./watcher.js）
             sub.update() 
         })
     }

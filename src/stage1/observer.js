@@ -1,32 +1,47 @@
 import Dep from './dep'
 
-// 遍历 vm.data 的所有属性
-export default function observer (obj,vm) {
-	Object.keys(obj).forEach(key => { 
-		defineReactive(vm,key,obj[key])
-	})
+function defineReactive(object, key, value) {
+    let dep = new Dep()
+    observe(value)
+    Object.defineProperty(object, key, {
+        configurable: true,
+        enumerable: true,
+        get: function () {
+            if (Dep.target) {
+                dep.addSub(Dep.target)
+            }
+            return value
+        },
+        set: function (newValue) {
+            if (newValue !== value) {
+                value = newValue
+                dep.notify()
+            }
+        }
+    })
 }
 
-// 使用 Object.defineProperty 把这些属性全部转为 getter/setter
-function defineReactive (obj,key,val) { 
-	// 实例化一个主题，每个属性都有一个 dep
-	var dep = new Dep()
-	Object.defineProperty(obj,key,{
-		get:function () {
-			// 初始化时添加订阅者
-			if(Dep.target){
-				dep.addSub(Dep.target) 
-			}
-			return val
-		},
-		set:function (newVal) {
-			if (val === newVal) {
-				// 数据无变化直接返回
-				return
-			}
-			val = newVal
-			// 发布更新公告
-			dep.notify() 
-		}
-	})
+class Observer {
+
+    constructor(value) {
+        this.value = value
+        this.walk(value)
+    }
+
+    walk(obj) {
+        const keys = Object.keys(obj)
+        for (let i = 0; i < keys.length; i++) {
+            defineReactive(obj, keys[i], obj[keys[i]])
+        }
+    }
+
+}
+
+export default function observe (value) {
+	let ob
+    if (typeof value !== 'object') return
+    else {
+        ob = new Observer(value)
+    }
+    return ob
 }

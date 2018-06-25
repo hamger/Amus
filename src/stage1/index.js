@@ -1,17 +1,15 @@
 import observer from './observer'
-import Compiler from './compiler'
+import Watcher from './watcher'
 
-class Amus {
-	constructor (options) {
-		this.data = options.data
-		// 监听数据
-		observer(this.data,this)
-
-		// 编译节点,更新view
-		new Compiler(options.el || document.body,this)
-	}
+var data = {
+	num: 21,
+	subNum1: 20,
+	subNum2: 22
 }
 
-window.Amus = Amus
+observer(data)
+var watcher = new Watcher(data, 'subNum1', function () {
+	console.log('触发修改subNum1的回调')
+})
 
-export default Amus
+data.subNum2++
