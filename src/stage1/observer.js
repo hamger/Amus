@@ -2,14 +2,11 @@ import Dep from './dep'
 
 function defineReactive(object, key, value) {
     let dep = new Dep()
-    observe(value)
     Object.defineProperty(object, key, {
         configurable: true,
         enumerable: true,
         get: function () {
-            if (Dep.target) {
-                dep.addSub(Dep.target)
-            }
+            if (Dep.target) dep.addSub(Dep.target)
             return value
         },
         set: function (newValue) {
@@ -40,8 +37,6 @@ class Observer {
 export default function observe (value) {
 	let ob
     if (typeof value !== 'object') return
-    else {
-        ob = new Observer(value)
-    }
+    else ob = new Observer(value)
     return ob
 }

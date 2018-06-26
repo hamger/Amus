@@ -1,17 +1,22 @@
-import Dep from './dep'
-import { timingSafeEqual } from 'crypto';
+
+import { pushTarget, popTarget } from './dep'
 
 export default class Watcher { 
-    constructor(vm, expression, callback) {
-        // 静态属性，指向 Watcher 实例
-        Dep.target = this 
-        this.vm = vm
+    constructor(data, expression, callback) {
+        this.data = data
         this.expression = expression
         this.callback = callback
-        this.update()
-        Dep.target = null 
+        this.get()
     }
 
+    get() {
+        pushTarget(this)
+        // 此时会触发对应属性的get
+        const value = this.data[this.expression]
+        popTarget()
+        return value
+    }
+    
     update() {
         this.callback()
     }

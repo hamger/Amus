@@ -1,15 +1,17 @@
-import observer from './observer'
+import observe from './observer'
 import Watcher from './watcher'
 
 var data = {
-	num: 21,
-	subNum1: 20,
-	subNum2: 22
+	num1: 20,
+	num2: 22,
 }
-
-observer(data)
-var watcher = new Watcher(data, 'subNum1', function () {
-	console.log('触发修改subNum1的回调')
+observe(data)
+new Watcher(data, 'num1', function () {
+	console.log('触发修改num1的回调')
 })
-
-data.subNum2++
+new Watcher(data, 'num2', function () {
+	console.log('触发修改num2的回调')
+})
+data.num1++
+data.num2++
+data.num1++
