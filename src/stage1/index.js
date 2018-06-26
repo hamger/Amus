@@ -6,11 +6,11 @@ var data = {
 	num2: 22,
 }
 observe(data)
-new Watcher(data, 'num1', function () {
-	console.log('触发修改num1的回调')
+new Watcher(data, 'num1', function (newVal, oldVal) {
+	console.log('num1新值：' + newVal + '; 旧值：' + oldVal)
 })
-new Watcher(data, 'num2', function () {
-	console.log('触发修改num2的回调')
+new Watcher(data, 'num2', function (newVal, oldVal) {
+	console.log('num2新值：' + newVal + '; 旧值：' + oldVal)
 })
 data.num1++
 data.num2++

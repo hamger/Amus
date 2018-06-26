@@ -6,7 +6,7 @@ export default class Watcher {
         this.data = data
         this.expression = expression
         this.callback = callback
-        this.get()
+        this.value = this.get()
     }
 
     get() {
@@ -18,6 +18,9 @@ export default class Watcher {
     }
     
     update() {
-        this.callback()
+        const value = this.data[this.expression]
+        const oldValue = this.value
+        this.value = value
+        this.callback.call(this.obj, value, oldValue)
     }
 }

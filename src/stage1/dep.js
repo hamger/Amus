@@ -1,6 +1,5 @@
 // 创建一个管理依赖的类
 export default class Dep {
-
     constructor () {
         // 依赖的集合，依赖是 Watcher 的实例
         this.subs = [] 

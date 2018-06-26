@@ -1,5 +1,7 @@
 ## amus-stage1
-实现一个基础的数据响应监听
+> 搭建基础响应系统
+
+实现一个最基础的数据响应系统
 ```js
 var data = {
 	num1: 20
@@ -35,9 +37,7 @@ function defineReactive(object, key, value) {
 }
 
 class Observer {
-
     constructor(value) {
-        this.value = value
         this.walk(value)
     }
 
@@ -47,7 +47,6 @@ class Observer {
             defineReactive(obj, keys[i], obj[keys[i]])
         }
     }
-
 }
 
 export default function observe (value) {
@@ -62,9 +61,6 @@ export default function observe (value) {
 引入一个 Dep 对象，作为依赖管理器。data 下的每一个属性都有一个唯一的 Dep 对象，在 get 中收集仅针对该属性的依赖，然后在 set 方法中触发所有收集的依赖。Dep.target 用来暂存某一个依赖。
 ```js
 export default class Dep {
-    // 静态属性
-	static target 
-
     constructor () {
         // 依赖的集合，依赖是 Watcher 的实例
         this.subs = [] 

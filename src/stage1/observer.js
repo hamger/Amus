@@ -19,9 +19,7 @@ function defineReactive(object, key, value) {
 }
 
 class Observer {
-
     constructor(value) {
-        this.value = value
         this.walk(value)
     }
 
@@ -31,7 +29,6 @@ class Observer {
             defineReactive(obj, keys[i], obj[keys[i]])
         }
     }
-
 }
 
 export default function observe (value) {
