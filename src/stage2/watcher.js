@@ -49,8 +49,4 @@ export default class Watcher {
         this.value = value
         this.callback.call(this.obj, value, oldValue)
     }
-
-    addDep (dep) {
-        this.deps.push(dep)
-    }
 }

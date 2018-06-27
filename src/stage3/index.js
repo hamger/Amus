@@ -4,19 +4,17 @@ import Watcher from './watcher'
 var data = {
 	num1: 20,
 	num2: 22,
-	num: {
-		a: 12,
-		b: 13
-	}
 }
 observe(data)
-new Watcher(data, 'num.a', function (newVal, oldVal) {
-	console.log('num.a新值：' + newVal + '; 旧值：' + oldVal)
+var aaa = new Watcher(data, 'num1', function (newVal, oldVal) {
+	console.log('num1新值：' + newVal + '; 旧值：' + oldVal)
 })
-new Watcher(data, function () {
-	return this.num.b
-}, function (newVal, oldVal) {
-	console.log('num.b新值：' + newVal + '; 旧值：' + oldVal)
+var bbb = new Watcher(data, 'num2', function (newVal, oldVal) {
+	console.log('num2新值：' + newVal + '; 旧值：' + oldVal)
 })
-data.num.a++
-data.num.b++
+data.num1++
+data.num2++
+
+aaa.dep.removeSub(aaa)
+data.num1++
+data.num2++

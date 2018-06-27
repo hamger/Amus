@@ -23,6 +23,7 @@ export default class Watcher {
     constructor(vm, expOrFn, callback) {
         this.vm = vm
         this.callback = callback
+        this.dep = null
         // parse expression for getter
         if (typeof expOrFn === 'function') {
             this.getter = expOrFn
@@ -51,6 +52,6 @@ export default class Watcher {
     }
 
     addDep (dep) {
-        this.deps.push(dep)
+        this.dep = dep
     }
 }

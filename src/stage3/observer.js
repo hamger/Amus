@@ -2,13 +2,14 @@ import Dep from './dep'
 
 function defineReactive(object, key, value) {
     let dep = new Dep()
-    observe(value)
+    let childOb = observe(value)
     Object.defineProperty(object, key, {
         configurable: true,
-        enumerable: true,
+        enumerable: true, 
         get: function () {
             if (Dep.target) {
                 dep.addSub(Dep.target)
+                dep.depend()
             } 
             return value
         },

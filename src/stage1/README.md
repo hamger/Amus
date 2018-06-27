@@ -114,7 +114,10 @@ export default class Watcher {
     }
     
     update() {
-        this.callback()
+        const value = this.data[this.expression]
+        const oldValue = this.value
+        this.value = value
+        this.callback.call(this.obj, value, oldValue)
     }
 }
 ```

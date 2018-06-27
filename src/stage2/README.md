@@ -1,4 +1,6 @@
 ## amus-stage2
+> 支持深层对象属性响应
+
 阶段一只是实现了对象最外层属性的响应，如果我们要使的所有属性都得以响应，就需要对象下遍历所有的属性
 ```js
 function defineReactive(object, key, value) {
@@ -86,10 +88,6 @@ export default class Watcher {
         const oldValue = this.value
         this.value = value
         this.callback.call(this.obj, value, oldValue)
-    }
-
-    addDep (dep) {
-        this.deps.push(dep)
     }
 }
 ```
