@@ -39,7 +39,7 @@ export default function observe (value) {
     return ob
 }
 ```
-同时需要修改 Watcher ，因为阶段一里的 Watcher 适用于建议最外层属性
+同时需要修改 Watcher ，因为阶段一里的 Watcher 适用于监听最外层属性，我们需要能监听所有的属性
 ```js
 /**
  * 解析对象属性路径（例如 obj.a.b）
@@ -77,7 +77,7 @@ export default class Watcher {
 
     get() {
         pushTarget(this)
-        // getter 函数返回对象的指定属性
+        // getter 函数返回对象的指定属性值（见 ./index.js）
         const value = this.getter.call(this.vm, this.vm)
         popTarget()
         return value

@@ -16,7 +16,7 @@ data.num1++  // 无返回
 ```
 
 ### Dep
-首先需要在 Dep 中加入 removeSub 方法，用于删除依赖；加入 depend 方法用于 watcher 实例调用 addDep 方法
+首先需要在 Dep 中加入 removeSub 方法，用于删除依赖；加入 depend 方法用于 watcher 调用 addDep 方法
 ```js
 removeSub (sub){
     const index = this.subs.indexOf(sub)
@@ -31,7 +31,7 @@ depend() {
 ```
 
 ### Watcher
-接下来在 Watcher 中定义 addDep 方法，并创建一个属性 dep 用来保存 dep 实例
+接下来在 Watcher 中定义 addDep 方法，并创建一个属性用来保存 dep 
 ```js
 export default class Watcher { 
     constructor(vm, expOrFn, callback) {
