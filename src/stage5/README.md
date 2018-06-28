@@ -111,9 +111,11 @@ const methodsToPatch = [
     'reverse'
 ]
 
-// 改变数组的默认处理，响应化新添加的对象属性
+/**
+ * 拦截突变方法并发出事件
+ */
 methodsToPatch.forEach(function(method) {
-    const original = arrayProto[method] // 数组方法
+    const original = arrayProto[method] // 劫持数组的原生方法
 
     const mutator = function (...args) {
         const result = original.apply(this, args)
@@ -128,11 +130,12 @@ methodsToPatch.forEach(function(method) {
                 inserted = args.slice(2)
                 break
         }
+        // 如果新增了元素，对该元素进行观察
         if (inserted) ob.observeArray(inserted)
         ob.dep.notify()
         return result
-	}
-	
+    }
+
     def(arrayMethods, method, mutator)
 })
 
@@ -180,3 +183,4 @@ constructor(value) {
 	}
 }
 ```
+详细测试代码见 index.js
