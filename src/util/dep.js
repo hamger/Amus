@@ -1,3 +1,5 @@
+import {remove} from "./util"
+
 let uid = 0
 
 export default class Dep {
@@ -34,14 +36,4 @@ export function pushTarget(_target) {
 
 export function popTarget() {
     Dep.target = null
-}
-
-/**
- * Remove an item from an array
- */
-export function remove(arr, item) {
-    if (arr.length) {
-        const index = arr.indexOf(item)
-        if (index > -1) return arr.splice(index, 1)
-    }
 }

@@ -43,6 +43,7 @@ export default function observe (value) {
 ```js
 /**
  * 解析对象属性路径（例如 obj.a.b）
+ * 函数科里化  parsePath('a.b')(obj) 返回 obj.a.b
  */
 const bailRE = /[^\w.$]/
 export function parsePath (path) {
@@ -50,6 +51,7 @@ export function parsePath (path) {
     return
   }
   const segments = path.split('.')
+  // 返回一个匿名函数，该函数接受一个 对象 作为参数
   return function (obj) {
     for (let i = 0; i < segments.length; i++) {
       if (!obj) return
@@ -65,8 +67,10 @@ export default class Watcher {
         this.callback = callback
         // expOrFn 可以是字符串或函数
         if (typeof expOrFn === 'function') {
+            // example of expOrFn： function () { return this.num.b }
             this.getter = expOrFn
         } else {
+            // example of expOrFn： 'num.a'
             this.getter = parsePath(expOrFn)
             if (!this.getter) {
                 this.getter = function () {}
@@ -77,7 +81,6 @@ export default class Watcher {
 
     get() {
         pushTarget(this)
-        // getter 函数返回对象的指定属性值（见 ./index.js）
         const value = this.getter.call(this.vm, this.vm)
         popTarget()
         return value

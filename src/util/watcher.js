@@ -19,7 +19,7 @@ export function parsePath (path) {
 let uid = 0
 
 export default class Watcher { 
-    constructor(vm, expOrFn, callback) {
+    constructor(vm, expOrFn, callback, options) {
         this.id = uid++
         this.vm = vm
         this.callback = callback
@@ -34,6 +34,12 @@ export default class Watcher {
             }
         }
         this.value = this.get()
+        if (options) {
+            this.lazy = !!options.lazy
+        } else {
+            this.lazy = false
+        }
+        this.dirty = this.lazy
     }
 
     get() {
@@ -44,10 +50,22 @@ export default class Watcher {
     }
     
     update() {
+        if (this.lazy) {
+            this.dirty = true
+            return
+        }
         const value = this.getter.call(this.vm, this.vm)
         const oldValue = this.value
         this.value = value
         this.callback.call(this.obj, value, oldValue)
+    }
+
+    /**
+     * 脏检查机制手动触发更新函数
+     */
+    evaluate() {
+        this.value = this.getter.call(this.vm)
+        this.dirty = false
     }
 
     addDep (dep) {
