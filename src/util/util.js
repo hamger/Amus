@@ -11,6 +11,27 @@ export function def(obj, key, value, enumerable) {
 }
 
 /**
+ * 代理到 target 对象
+ */
+export function proxy(target, sourceKey, key) {
+    const sharedPropertyDefinition = {
+        enumerable: true,
+        configurable: true,
+        get() {
+        },
+        set() {
+        }
+    }
+    sharedPropertyDefinition.get = function proxyGetter() {
+        return this[sourceKey][key]
+    }
+    sharedPropertyDefinition.set = function proxySetter(val) {
+        this[sourceKey][key] = val
+    }
+    Object.defineProperty(target, key, sharedPropertyDefinition)
+}
+
+/**
  * 转换为字符串
  */
 export function _toString(val) {
@@ -68,16 +89,6 @@ export function toArray(list, start) {
         ret[i] = list[i + start]
     }
     return ret
-}
-
-/**
- * 将一个对象(_form)混合到另一个对象(to)
- */
-export function extend(to, _from) {
-    for (const key in _from) {
-        to[key] = _from[key]
-    }
-    return to
 }
 
 /**
@@ -139,23 +150,6 @@ export function looseIndexOf(arr, val) {
         if (looseEqual(arr[i], val)) return i
     }
     return -1
-}
-
-/**
- * 递归地合并对象
- */
-export function mergeData(to, from) {
-    let key, toVal, fromVal
-    for (key in from) {
-        toVal = to[key]
-        fromVal = from[key]
-        if (!hasOwn(to, key)) {
-            def(to, key, fromVal)
-        } else if (isObject(toVal) && isObject(fromVal)) {
-            mergeData(toVal, fromVal)
-        }
-    }
-    return to
 }
 
 /**

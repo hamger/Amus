@@ -2,59 +2,80 @@ import {Event} from "../util/event";
 import observe from "../util/observer";
 import Watcher from "../util/watcher";
 import Computed from "../util/computed";
-
-// 代理到 target 对象
-export function proxy(target, sourceKey, key) {
-    const sharedPropertyDefinition = {
-        enumerable: true,
-        configurable: true,
-        get() {
-        },
-        set() {
-        }
-    }
-    sharedPropertyDefinition.get = function proxyGetter() {
-        return this[sourceKey][key]
-    }
-    sharedPropertyDefinition.set = function proxySetter(val) {
-        this[sourceKey][key] = val
-    }
-    Object.defineProperty(target, key, sharedPropertyDefinition)
-}
+import {proxy} from "../util/util";
+import {mergeOptions} from "./options";
 
 let uid = 0
 
 export class Amus extends Event {
     constructor(options) {
         super()
+        this.uid = uid++
         this._init(options)
     }
 
     _init(options) {
         let vm = this
-        vm.uid = uid++
 
-        if (options.methods) {
-            for (let key in options.methods) {
-                vm[key] = options.methods[key].bind(vm)
-            }
+        vm.$options = mergeOptions(
+            this.constructor.options,
+            options,
+            vm
+        )
+
+
+        for (let key in vm.$options.methods) {
+            vm[key] = vm.$options.methods[key].bind(vm)
         }
-        // 先将 vm._data 转变为可监听结构
-        vm._data = options.data.call(vm)
+
+        vm._data = vm.$options.data.call(vm)
         observe(vm._data)
-        // 然后代理到 vm 对象下，直接赋值会使可监听结构被破坏
         for (let key in vm._data) {
             proxy(vm, '_data', key)
         }
 
-        for (let key in options.watch) {
-            new Watcher(vm, key, options.watch[key])
+        for (let key in vm.$options.watch) {
+            new Watcher(vm, () => {
+                return key.split('.').reduce((obj, name) => obj[name], vm)
+            }, (newValue, oldValue) => {
+                vm.$options.watch[key].forEach(fnc => fnc(newValue, oldValue))
+            })
         }
 
-        for (let key in options.computed) {
-            new Computed(vm, key, options.computed[key])
+        for (let key in vm.$options.computed) {
+            new Computed(vm, key, vm.$options.computed[key])
         }
 
     }
 }
 
+// 设置默认 options
+Amus.options = {
+    components: {},
+    _base: Amus
+}
+
+/**
+ * 返回一个子组件的类
+ * @param {子组件配置项} extendOptions 
+ */
+Amus.extend = function (extendOptions) {
+    // this 指向 Amus
+    const Super = this
+
+    class Sub extends Super {
+        constructor(options) {
+            super(options)
+        }
+    }
+
+    Sub.options = mergeOptions(
+        Super.options,
+        extendOptions
+    )
+
+    Sub.super = Super
+    Sub.extend = Super.extend
+
+    return Sub
+}

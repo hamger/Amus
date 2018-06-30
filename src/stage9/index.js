@@ -1,47 +1,78 @@
+import {Amus} from './Amus'
 
-import {Amus} from "./Amus";
-
-let test = new Amus({
+// 设置父组件 options
+let parent = Amus.extend({
     data() {
         return {
-            firstName: 'aco',
-            lastName: 'Yang'
+            dataTest: 1
+        }
+    },
+    methods: {
+        methodTest() {
+            console.log('methodTest')
+        }
+    },
+    watch: {
+        'dataTest'(newValue, oldValue) {
+            console.log('watchTest newValue = ' + newValue)
         }
     },
     computed: {
-        computedValue: {
+        'computedTest': {
             get() {
-                console.log('测试缓存')
-                return this.firstName + ' ' + this.lastName
-            }
-        },
-        computedSet: {
-            get() {
-                return this.firstName + ' ' + this.lastName
-            },
-            set(value) {
-                let names = value.split(' ')
-                this.firstName = names[0]
-                this.lastName = names[1]
+                return this.dataTest + 1
             }
         }
     }
 })
-// 测试缓存 （刚绑定 watcher 时会调用一次 get 进行依赖绑定）
-console.log('-------------')
-console.log(test.computedValue)
-// 测试缓存
-// aco Yang
 
-console.log(test.computedValue)
-// acoYang （缓存成功，并没有调用 get 函数）
+// 对父组件进行拓展，生成子组件
+let child = new parent({
+    data() {
+        return {
+            subData: 11
+        }
+    },
+    methods: {
+        subMethod() {
+            console.log('subMethodTest')
+        }
+    },
+    watch: {
+        'subData'(newValue, oldValue) {
+            console.log('subWatch newValue = ' + newValue)
+        }
+    },
+    computed: {
+        'subComputed': {
+            get() {
+                return this.subData + 1
+            }
+        }
+    }
+})
 
-test.firstName = 'acco'
-console.log(test.computedValue)
-// 测试缓存 （当依赖发生变化时，就会调用 get 函数）
-// acco Yang
+console.log(child.dataTest)
+// 1
+console.log(child.subData)
+// 11
 
-test.computedSet = 'accco Yang'
-console.log(test.computedValue)
-// 测试缓存 （通过 set 使得依赖发生了变化）
-// accco Yang
+console.log(child.computedTest)
+// 2
+console.log(child.subComputed)
+// 12
+
+child.methodTest()
+// methodTest
+child.subMethod()
+// subMethodTest
+
+child.dataTest = 2
+// watchTest newValue = 2
+child.subData = 12
+// subWatch newValue = 12
+
+console.log(child.constructor === parent)
+// true
+console.log(parent.super === Amus)
+// true
