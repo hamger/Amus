@@ -2,7 +2,7 @@ import {Event} from "../util/event";
 import observe from "../util/observer";
 import Watcher from "../util/watcher";
 
-
+// 代理到 target 对象
 export function proxy(target, sourceKey, key) {
     const sharedPropertyDefinition = {
         enumerable: true,
@@ -23,7 +23,7 @@ export function proxy(target, sourceKey, key) {
 
 let uid = 0
 
-export class Vue extends Event {
+export class Amus extends Event {
     constructor(options) {
         super()
         this._init(options)

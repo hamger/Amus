@@ -1,7 +1,7 @@
 
-import {Vue} from "./Vue";
+import {Amus} from "./Amus";
 
-let test = new Vue({
+let test = new Amus({
     data() {
         return {
             baseTest: 'baseTest',
@@ -27,12 +27,13 @@ let test = new Vue({
     }
 })
 
+console.log(test.baseTest)
+// baseTest
+
+// 注册一个事件
 test.$on('eventTest', function (event) {
     console.log(event)
 })
-
-console.log(test.baseTest)
-// baseTest
 
 test.methodTest()
 // methodTest
