@@ -1,4 +1,4 @@
-import { Event } from "./Event";
+import { Event } from "./event";
 
 let eventTest = new Event()
 
@@ -27,29 +27,17 @@ eventTest.$on(['eventName5', 'eventName6'], [(e) => {
 }])
 
 eventTest.$emit('eventName1', '参数1')
-// 一次添加一个处理函数
-// 参数1
+
 eventTest.$emit('eventName2', '参数2')
-// 一次添加多个处理函数，第一个
-// 参数2
-// 一次添加多个处理函数，第二个
-// 参数2
+
 eventTest.$emit('eventName3', '参数3')
-// 多个事件添加同一处理函数
-// 参数3
+
 eventTest.$emit('eventName4', '参数4')
-// 多个事件添加同一处理函数
-// 参数4
+
 eventTest.$emit('eventName5', '参数5')
-// 多个事件添加多个处理函数，第一个
-// 参数5
-// 多个事件添加多个处理函数，第二个
-// 参数5
+
 eventTest.$emit('eventName6', '参数6')
-// 多个事件添加多个处理函数，第一个
-// 参数6
-// 多个事件添加多个处理函数，第二个
-// 参数6
+
 console.log('------------------------------')
 
 eventTest.$off('eventName1')
@@ -61,19 +49,13 @@ eventTest.$emit('eventName2', '参数2')
 // 无输出
 eventTest.$emit('eventName3', '参数3')
 // 无输出
+
 eventTest.$emit('eventName4', '参数4')
-// 多个事件添加同一处理函数
-// 参数4
+
 eventTest.$emit('eventName5', '参数5')
-// 多个事件添加多个处理函数，第一个
-// 参数5
-// 多个事件添加多个处理函数，第二个
-// 参数5
+
 eventTest.$emit('eventName6', '参数6')
-// 多个事件添加多个处理函数，第一个
-// 参数6
-// 多个事件添加多个处理函数，第二个
-// 参数6
+
 console.log('------------------------------')
 
 eventTest.$off()

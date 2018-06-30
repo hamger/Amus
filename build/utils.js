@@ -107,7 +107,7 @@ exports.getEntry = (globPath, pathDir) => {
   for (let i = 0; i < files.length; i++) {
     entry = files[i]
     dirname = path.dirname(entry).split('/').pop()
-    entries[dirname] = './' + entry
+    if (/stage/.test(dirname)) entries[dirname] = './' + entry
   }
   return entries;
 }
