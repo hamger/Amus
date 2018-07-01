@@ -32,6 +32,25 @@ export function proxy(target, sourceKey, key) {
 }
 
 /**
+ * 逐级向上查找 inject，找不到就用默认值
+ * @param {上下文} ctx 
+ * @param {键名} key 
+ * @param {默认值} defaultValue 
+ */ 
+export function getProvideForInject(ctx, key, defaultValue) {
+    let parent = ctx.$parent
+    let value = defaultValue
+    while (parent) {
+        if (parent._provide && key in parent._provide) {
+            value = parent._provide[key]
+            break
+        }
+        parent = parent.$parent
+    }
+    return value
+}
+
+/**
  * 转换为字符串
  */
 export function _toString(val) {

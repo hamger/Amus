@@ -1,4 +1,4 @@
 ## amus-stage8
 > 添加计算属性
 
-当依赖发生变化时，不需要触发计算属性的 get，因此需要引入 Watcher 的脏检查机制。
+[说明链接](http://blog.acohome.cn/2018/05/03/vue-computed/)
