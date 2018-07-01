@@ -1,7 +1,7 @@
 import {Amus} from './Amus'
 
-// 设置父组件 options
-let parent = Amus.extend({
+// 使用基础 Amus 构造器，创建一个“子类”。参数是一个包含组件选项的对象。
+let childConstructor = Amus.extend({
     data() {
         return {
             dataTest: 1
@@ -26,8 +26,8 @@ let parent = Amus.extend({
     }
 })
 
-// 对父组件进行拓展，生成子组件
-let child = new parent({
+// 实例化一个子组件
+let child = new childConstructor({
     data() {
         return {
             subData: 11
@@ -72,7 +72,7 @@ child.dataTest = 2
 child.subData = 12
 // subWatch newValue = 12
 
-console.log(child.constructor === parent)
+console.log(child.constructor === childConstructor)
 // true
-console.log(parent.super === Amus)
+console.log(childConstructor.super === Amus)
 // true
