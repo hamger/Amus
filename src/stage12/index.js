@@ -1,4 +1,6 @@
 import {Amus} from './Amus'
+import sub from './sub'
+import sub2 from './sub2'
 
 const options = {
     data () {
@@ -7,29 +9,8 @@ const options = {
         }
     },
     components: {
-        sub: {
-            data () {
-                return {
-                    text: 'subData'
-                }
-            },
-            components: {
-                subSub: {
-                    data () {
-                        return {
-                            text: 'subSubData'
-                        }
-                    }
-                }
-            }
-        },
-        sub2: {
-            data () {
-                return {
-                    text: 'sub2Data'
-                }
-            },
-        }
+        sub,
+        sub2
     }
 }
 
