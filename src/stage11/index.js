@@ -1,7 +1,6 @@
 import {Amus} from './Amus'
 
-// 父组件
-let test = new Amus({
+const options = {
     provide: {
         foo: 'fooVal'
     },
@@ -21,7 +20,10 @@ let test = new Amus({
             }
         }
     }
-})
+}
+
+// 父组件
+let test = new Amus(options)
 
 let testSubClass = Amus.extend(test.$options.components.sub)
 // 子组件

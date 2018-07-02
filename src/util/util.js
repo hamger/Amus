@@ -149,6 +149,13 @@ export function noop() {}
 export const no = () => false
 
 /**
+ * 返回 空对象 的函数
+ */
+export const empty = () => {
+    return {}
+}
+
+/**
  * 宽送地比较两个值是否相等，对象类型通过 JSON.stringify 转换再进行比较
  */
 export function looseEqual(a, b) {

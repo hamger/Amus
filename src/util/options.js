@@ -1,3 +1,5 @@
+import {empty} from './util'
+
 export function mergeOptions(parent, child) {
     // 直接合并 parent 和 child ，避免
     // 除 data/methods/watch/computed 之外的属性丢失
@@ -19,7 +21,7 @@ export function mergeOptions(parent, child) {
 }
 
 function mergeData(parentValue, childValue) {
-    if (!parentValue) return childValue
+    if (!parentValue) return childValue || empty
     if (!childValue) return parentValue
     
     return function () {

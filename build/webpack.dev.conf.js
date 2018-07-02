@@ -13,6 +13,7 @@ const portfinder = require('portfinder')
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
 
+// 在不同的页面中插入对应的js文件
 var pages = Object.keys(utils.getEntry('src/**/index.js'));
 pages.forEach(item => {
   baseWebpackConfig.plugins.push(new HtmlWebpackPlugin({

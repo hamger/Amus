@@ -3,6 +3,7 @@ node_modules/
 dist/
 npm-debug.log
 yarn-error.log
+src/stageX
 
 # Editor directories and files
 .idea
