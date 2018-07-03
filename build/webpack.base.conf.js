@@ -31,7 +31,7 @@ module.exports = {
       : config.dev.assetsPublicPath
   },
   resolve: {
-    extensions: ['.js', '.json'],
+    extensions: [".tsx", ".ts", ".js"],
     alias: {
       '@': resolve('src'),
     }
@@ -42,7 +42,12 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: [resolve('src'), resolve('test'), resolve('node_modules/webpack-dev-server/client')]
+        include: [resolve('src'), resolve('test')]
+      },
+      {
+        test: /\.tsx?$/,
+        loader: 'ts-loader',
+        include: [resolve('src'), resolve('test')]
       },
       {
         test: /.s[c|a]ss$/,
