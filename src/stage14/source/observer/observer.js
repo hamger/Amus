@@ -1,4 +1,4 @@
-import Dep from './dep'
+import Dep from './dep.ts'
 import {
   arrayMethods
 } from './array'

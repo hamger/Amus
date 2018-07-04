@@ -1,7 +1,7 @@
 
-import { pushTarget, popTarget } from './dep'
+import Dep, { pushTarget, popTarget } from './dep.ts'
 
-export default class Watcher { 
+export default class Watcher {
     constructor(data, expression, callback) {
         this.data = data
         this.expression = expression

@@ -1,18 +1,23 @@
 import {remove} from '../util/util'
+import Watcher from './watcher'
 
 let uid = 0
 
 export default class Dep {
+  static target?: Watcher;
+  id: number;
+  subs: Array<Watcher>;
+
   constructor () {
     this.id = uid++
     this.subs = []
   }
 
-  addSub (sub) {
+  addSub (sub: Watcher) {
     this.subs.push(sub)
   }
 
-  removeSub (sub) {
+  removeSub (sub: Watcher) {
     remove(this.subs, sub)
   }
 
@@ -29,8 +34,7 @@ export default class Dep {
   }
 }
 
-Dep.target = null
-export function pushTarget (_target) {
+export function pushTarget (_target: Watcher) {
   Dep.target = _target
 }
 

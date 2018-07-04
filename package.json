@@ -40,11 +40,11 @@
     "rimraf": "^2.6.0",
     "sass-loader": "^7.0.1",
     "style-loader": "^0.21.0",
-    "ts-loader": "^4.4.2",
-    "typescript": "^2.9.2",
-    "webpack": "^3.10.0",
-    "webpack-dev-server": "^2.11.1",
-    "webpack-merge": "^4.1.0"
+    "ts-loader": "3.5.0",
+    "typescript": "2.9.2",
+    "webpack": "3.6.0",
+    "webpack-dev-server": "2.11.1",
+    "webpack-merge": "4.1.0"
   },
   "dependencies": {
     "ramda": "^0.25.0",

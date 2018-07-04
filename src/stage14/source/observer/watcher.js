@@ -1,7 +1,7 @@
 import {
   pushTarget,
   popTarget
-} from './dep'
+} from './dep.ts'
 
 const bailRE = /[^\w.$]/
 export function parsePath (path) {

@@ -85,3 +85,12 @@ eventTest.$on('eventName7', (e) => {
 })
 eventTest.$off('eventName7', [fn7, fn8])
 eventTest.$emit('eventName7', '测试取消')
+
+console.log('------------------------------')
+eventTest.$once('testOnce', function (event) {
+    console.log('事件仅仅触发一次，参数：' + event)
+})
+eventTest.$emit('testOnce', '事件触发成功')
+// 事件仅仅触发一次，参数：事件触发成功
+eventTest.$emit('testOnce', '事件取消，不会有输出')
+// 无输出

@@ -1,6 +1,6 @@
 import {
   Event
-} from '../observer/event'
+} from '../observer/event.ts'
 import observe from '../observer/observer'
 import Watcher from '../observer/watcher'
 import Computed from '../observer/computed'

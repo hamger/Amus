@@ -1,4 +1,4 @@
-import Dep from './dep'
+import Dep from './dep.ts'
 
 function defineReactive(object, key, value) {
     let dep = new Dep()

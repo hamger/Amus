@@ -29,7 +29,6 @@ export class Event {
             fn.apply(object, arguments)
         }
 
-        on.fn = fn
         object.$on(eventName, on)
         return object
     }
