@@ -1,5 +1,5 @@
 # Amus
-a framwork with mvvm
+the learning of vue 
 
 ### 参考
 * vue-v2.0.0源码（通过`npm install vue@2.0.0`下载）
